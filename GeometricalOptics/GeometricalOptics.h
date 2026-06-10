@@ -36,10 +36,25 @@ public:
 	}
 };
 
+class BasicUniformMaterial: public ComponentInterface {
+private:
+	float _n = 1.0f;
+	std::string _materialName;
+public:
+	BasicUniformMaterial(std::string& materialName, float& n) {
+		this->_materialName = materialName;
+		this->_n = n;
+	}
+
+	std::string details() override {
+		return "BasicUniformMaterial: name=" + this->_materialName + " n=" + std::to_string(this->_n);
+	}
+};
+
 class GOpticsSystem {
+private:
 	std::vector<std::unique_ptr<ComponentInterface>> components;
 
-public:
 public:
 	// Accept a unique_ptr to take ownership of the component
 	GOpticsSystem& add(std::unique_ptr<ComponentInterface> c) {
